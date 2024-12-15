@@ -7,6 +7,7 @@ interface ChatInputProps {
   onStartRecording: () => void;
   onStopRecording: () => void;
   isRecording: boolean;
+  isLoading: boolean;
 }
 
 export function ChatInput({ 
@@ -14,13 +15,14 @@ export function ChatInput({
   onLocationRequest, 
   onStartRecording, 
   onStopRecording,
-  isRecording 
+  isRecording,
+  isLoading
 }: ChatInputProps) {
   const [input, setInput] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
     onSubmit(input);
     setInput('');
   };
@@ -31,7 +33,8 @@ export function ChatInput({
         <button
           type="button"
           onClick={onLocationRequest}
-          className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+          disabled={isLoading}
+          className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors disabled:opacity-50"
           title="Compartilhar localização"
         >
           <MapPin className="w-5 h-5" />
@@ -40,11 +43,12 @@ export function ChatInput({
         <button
           type="button"
           onClick={isRecording ? onStopRecording : onStartRecording}
+          disabled={isLoading}
           className={`p-2 rounded-full transition-colors ${
             isRecording 
               ? 'text-red-600 hover:bg-red-50' 
               : 'text-blue-600 hover:bg-blue-50'
-          }`}
+          } disabled:opacity-50`}
           title={isRecording ? 'Parar gravação' : 'Gravar mensagem'}
         >
           <Mic className="w-5 h-5" />
@@ -54,15 +58,22 @@ export function ChatInput({
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          disabled={isLoading}
           placeholder="Digite sua mensagem..."
-          className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
         />
-        
+
         <button
           type="submit"
-          className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors"
+          disabled={!input.trim() || isLoading}
+          className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors disabled:opacity-50"
+          title="Enviar mensagem"
         >
-          <Send className="w-5 h-5" />
+          {isLoading ? (
+            <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <Send className="w-5 h-5" />
+          )}
         </button>
       </div>
     </form>
