@@ -38,8 +38,3 @@ export interface HealthUnit {
     available: number;
   };
 }
-
-export interface AssistantResponse {
-  type: 'healthUnits';
-  units: HealthUnit[];
-}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Message } from '../types';
-import { HealthUnitDisplay } from './HealthUnitDisplay';
 
 interface MessageBubbleProps {
   message: Message;
@@ -18,11 +17,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             : 'bg-gray-100 text-gray-800'
         }`}
       >
-        {message.healthUnits ? (
-          <HealthUnitDisplay units={message.healthUnits} />
-        ) : (
-          message.content
-        )}
+        {message.content}
       </div>
     </div>
   );
