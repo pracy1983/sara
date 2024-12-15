@@ -17,14 +17,16 @@ SARA é um sistema web moderno desenvolvido para ajudar usuários a encontrar un
 - TypeScript
 - Tailwind CSS
 - Vite
+- OpenAI Assistant
 - Lucide React (para ícones)
 
 ## Pré-requisitos
 
 - Node.js (versão 14 ou superior)
 - npm ou yarn
+- Chave de API da OpenAI
 
-## Instalação
+## Configuração
 
 1. Clone o repositório:
 ```bash
@@ -39,14 +41,21 @@ npm install
 yarn
 ```
 
-3. Inicie o servidor de desenvolvimento:
+3. Configure as variáveis de ambiente:
+   - Crie um arquivo `.env` na raiz do projeto
+   - Adicione sua chave de API da OpenAI:
+   ```
+   VITE_OPENAI_API_KEY=sua_chave_api_aqui
+   ```
+
+4. Inicie o servidor de desenvolvimento:
 ```bash
 npm run dev
 # ou
 yarn dev
 ```
 
-4. Acesse `http://localhost:5173` no seu navegador
+5. Acesse `http://localhost:5173` no seu navegador
 
 ## Estrutura do Projeto
 
@@ -58,6 +67,8 @@ sara/
 │   ├── data/          # Dados mockados e constantes
 │   ├── types/         # Definições de tipos TypeScript
 │   ├── utils/         # Funções utilitárias
+│   ├── services/      # Serviços de API
+│   ├── config/        # Configurações
 │   ├── App.tsx        # Componente principal
 │   └── main.tsx       # Ponto de entrada da aplicação
 ├── public/            # Arquivos estáticos

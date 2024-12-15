@@ -1,15 +1,9 @@
 import { useCallback } from 'react';
-import type { ReactNode } from 'react';
 import { HealthUnit } from '../types';
 import { mockHealthUnits } from '../../../data/mockData';
 import { calculateDistance } from '../../../utils/geoUtils';
-import { HealthUnitDisplay } from '../components/HealthUnitDisplay';
 
-interface UseHealthUnitsProps {
-  addBotMessage: (content: string | ReactNode) => void;
-}
-
-export function useHealthUnits({ addBotMessage }: UseHealthUnitsProps) {
+export function useHealthUnits() {
   const findNearbyUnits = useCallback((coords: GeolocationCoordinates): HealthUnit[] => {
     return mockHealthUnits
       .map(unit => ({
@@ -25,12 +19,7 @@ export function useHealthUnits({ addBotMessage }: UseHealthUnitsProps) {
       .slice(0, 3);
   }, []);
 
-  const displayNearbyUnits = useCallback((units: HealthUnit[]) => {
-    addBotMessage(React.createElement(HealthUnitDisplay, { units }));
-  }, [addBotMessage]);
-
   return {
-    findNearbyUnits,
-    displayNearbyUnits
+    findNearbyUnits
   };
 }

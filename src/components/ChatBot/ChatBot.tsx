@@ -6,11 +6,12 @@ import { ChatInput } from './components/ChatInput';
 import { useMessages } from './hooks/useMessages';
 import { useAudioRecording } from './hooks/useAudioRecording';
 import { useHealthUnits } from './hooks/useHealthUnits';
+import { HealthUnitDisplay } from './components/HealthUnitDisplay';
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = React.useState(false);
   const { messages, addMessage, addBotMessage } = useMessages();
-  const { findNearbyUnits, displayNearbyUnits } = useHealthUnits({ addBotMessage });
+  const { findNearbyUnits } = useHealthUnits();
   const { isRecording, startRecording, stopRecording } = useAudioRecording();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +35,7 @@ export function ChatBot() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const nearbyUnits = findNearbyUnits(position.coords);
-          displayNearbyUnits(nearbyUnits);
+          addBotMessage(<HealthUnitDisplay units={nearbyUnits} />);
         },
         (error) => {
           addBotMessage("Não foi possível obter sua localização. Por favor, digite seu endereço.");
