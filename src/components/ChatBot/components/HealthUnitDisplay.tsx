@@ -27,18 +27,26 @@ export function HealthUnitDisplay({ units }: HealthUnitDisplayProps) {
                 : 'border-gray-100 hover:shadow-md hover:border-gray-200'
             }`}
           >
-            {isFastest && (
-              <div className="absolute -top-3 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                <Zap className="w-3 h-3" />
-                Mais Rápido
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-blue-600">{unit.name}</h3>
+                <span className="text-xs font-medium px-2 py-1 rounded-full bg-blue-50 text-blue-600">
+                  {unit.type}
+                </span>
               </div>
-            )}
-            
-            <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-blue-600">{unit.name}</h3>
-              <span className="text-xs font-medium px-2 py-1 rounded-full bg-blue-50 text-blue-600">
-                {unit.type}
-              </span>
+              
+              <div className="text-xs text-gray-600 italic">
+                {unit.type === 'UPA' && 'Para casos de urgência e emergência'}
+                {unit.type === 'UBS' && 'Para atendimentos de rotina e prevenção de doenças'}
+                {unit.type === 'Hospital' && 'Para casos de maior complexidade e internação'}
+              </div>
+
+              {isFastest && (
+                <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 self-start glow-effect">
+                  <Zap className="w-3 h-3" />
+                  Mais Rápido
+                </div>
+              )}
             </div>
             
             <p className="text-sm text-gray-600 mt-1">{unit.address}</p>
